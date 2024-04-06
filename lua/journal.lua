@@ -2,7 +2,7 @@ local M = {}
 
 M.setup = function(opts)
     require('journal.config').setup(opts)
-    print(vim.inspect(require('journal.config').get()))
+    require('journal.command').setup()
 end
 
 return M
