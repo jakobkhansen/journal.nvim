@@ -1,9 +1,8 @@
 local M = {}
 
-local config = require('journal.config').get()
-
 M.setup = function(opts)
-    print(vim.inspect(config))
+    require('journal.config').setup(opts)
+    print(vim.inspect(require('journal.config').get()))
 end
 
 return M
