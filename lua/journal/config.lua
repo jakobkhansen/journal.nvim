@@ -3,7 +3,12 @@
 local M = {}
 
 local defaults = {
-    filetype = 'md'
+    filetype = 'md',
+    dir = '~/journal',
+    day_format = '%Y/%m-%B/%d-%A',
+    week_format = '%Y/%m-%B/week-%W',
+    month_format = '%Y/%m-%B/%B',
+    year_format = '%Y/%Y',
 }
 
 M.get = function()

@@ -42,13 +42,13 @@ function Date:yesterday()
     return o
 end
 
-function Date:relative(date)
+function Date:relative(days_delta)
     local o = {}
     setmetatable(o, self)
     self.__index = self
 
     local today = os.date("*t")
-    today.day = today.day + date
+    today.day = today.day + days_delta
     local relative = os.date("*t", os.time(today))
 
     self.day = relative.day
@@ -56,6 +56,18 @@ function Date:relative(date)
     self.year = relative.year
     self.wday = relative.wday
     return o
+end
+
+-- Returns date of this weeks instance of wday
+function Date:weekday(wday)
+    local today_w = tonumber(os.date("%u"))
+    local days_delta = wday - today_w
+
+    return Date:relative(days_delta)
+end
+
+function Date:to_format(format)
+    return os.date(format, os.time(self))
 end
 
 function Date:to_string()
