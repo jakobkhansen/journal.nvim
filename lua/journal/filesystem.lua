@@ -21,17 +21,17 @@ M.open_entry = function(entry)
 end
 
 M.open_day_entry = function(date)
-    local journal_file = getEntryPath(date, config.day_format)
+    local journal_file = getEntryPath(date, config.day_entry_format)
     M.open_entry(journal_file)
 end
 
 M.open_week_entry = function(date)
-    local journal_file = getEntryPath(date, config.week_format)
+    local journal_file = getEntryPath(date, config.week_entry_format)
     M.open_entry(journal_file)
 end
 
 M.open_month_entry = function(date)
-    local journal_file = getEntryPath(date, config.month_format)
+    local journal_file = getEntryPath(date, config.month_entry_format)
     M.open_entry(journal_file)
 end
 

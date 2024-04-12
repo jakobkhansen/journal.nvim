@@ -66,6 +66,22 @@ function Date:weekday(wday)
     return Date:relative(days_delta)
 end
 
+function Date:from_timestamp(timestamp)
+    local o = {}
+
+    setmetatable(o, self)
+    self.__index = self
+
+    local date = os.date("*t", timestamp)
+
+    self.day = date.day
+    self.month = date.month
+    self.year = date.year
+    self.wday = date.wday
+
+    return o
+end
+
 function Date:to_format(format)
     return os.date(format, os.time(self))
 end

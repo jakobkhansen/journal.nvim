@@ -2,6 +2,8 @@ local M = {}
 
 local Date = require('journal.date').Date
 
+local config = require('journal.config').get()
+
 local wdays = {
     monday = 1,
     tuesday = 2,
@@ -11,6 +13,16 @@ local wdays = {
     saturday = 6,
     sunday = 7
 }
+
+local function try_parse_date_string(date_string)
+    local date = vim.fn.strptime(config.date_format, date_string)
+
+    if (date == 0) then
+        return nil
+    end
+
+    return Date:from_timestamp(date)
+end
 
 -- Takes a table of args from ":Journal" command
 -- Returns a Data object
@@ -27,12 +39,13 @@ M.parse_date = function(date)
     if (date[1]:sub(1, 1) == '-' or date[1]:sub(1, 1) == '+') then
         return Date:relative(tonumber(date[1]))
     end
-    -- Jumpts to the current weeks instance of wday
+    -- Jumps to the current weeks instance of wday
     if (wdays[date[1]:lower()] ~= nil) then
         return Date:weekday(wdays[date[1]:lower()])
     end
 
-    return nil
+    return try_parse_date_string(date[1]:lower())
 end
+
 
 return M

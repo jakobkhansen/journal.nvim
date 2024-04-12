@@ -5,9 +5,10 @@ local M = {}
 local defaults = {
     filetype = 'md',
     dir = '~/journal',
-    day_format = '%Y/%m-%B/%d-%A',
-    week_format = '%Y/%m-%B/week-%W',
-    month_format = '%Y/%m-%B/%B',
+    date_format = '%d/%m/%Y',
+    day_entry_format = '%Y/%m-%B/daily/%d-%A',
+    week_entry_format = '%Y/%m-%B/weekly/week-%W',
+    month_entry_format = '%Y/%m-%B/%B',
     year_format = '%Y/%Y',
 }
 
