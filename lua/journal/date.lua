@@ -38,6 +38,10 @@ function Date:yesterday()
     return Date:relative(-1)
 end
 
+function Date:tomorrow()
+    return Date:relative(1)
+end
+
 -- Returns date of this weeks instance of wday
 function Date:weekday(wday)
     local today_w = tonumber(os.date("%u"))

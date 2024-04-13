@@ -36,6 +36,9 @@ M.parse_date = function(date)
     if (string.lower(date[1]) == 'yesterday') then
         return Date:yesterday()
     end
+    if (string.lower(date[1]) == 'tomorrow') then
+        return Date:tomorrow()
+    end
     if (date[1]:sub(1, 1) == '-' or date[1]:sub(1, 1) == '+') then
         return Date:relative(tonumber(date[1]))
     end
