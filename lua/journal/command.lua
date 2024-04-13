@@ -26,7 +26,7 @@ local execute_journal_command = function(args)
         return
     end
 
-    print('Invalid journal entry')
+    print('Invalid journal entry') -- TODO logging
 end
 
 M.setup = function()
