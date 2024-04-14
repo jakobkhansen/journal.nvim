@@ -48,7 +48,7 @@ function Date:weekday(wday)
     local today_w = tonumber(os.date("%u"))
     local days_delta = wday - today_w
 
-    return Date:relative(days_delta)
+    return Date:relative({ day = days_delta, month = 0, year = 0 })
 end
 
 function Date:from_timestamp(timestamp)
