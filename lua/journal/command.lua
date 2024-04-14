@@ -33,6 +33,10 @@ local execute_journal_command = function(args)
         date = Date:today()
     end
 
+    if (entry_config == nil or date == nil) then
+        return
+    end
+
     fs.open_entry(date, entry_config)
 end
 
