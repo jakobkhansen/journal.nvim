@@ -34,6 +34,13 @@ M.get = function()
     return defaults
 end
 
+M.journal_dir = function()
+    if type(defaults.dir) == 'function' then
+        return defaults.dir()
+    end
+    return defaults.dir
+end
+
 local function is_dict_like(tbl)
     return type(tbl) == 'table' and not vim.tbl_islist(tbl)
 end
