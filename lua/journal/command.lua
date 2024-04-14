@@ -30,7 +30,14 @@ local execute_journal_command = function(args)
 end
 
 M.setup = function()
-    vim.api.nvim_create_user_command('Journal', execute_journal_command, { nargs = '*' })
+    vim.api.nvim_create_user_command(
+        'Journal',
+        execute_journal_command,
+        {
+            nargs = '*',
+            complete = require("journal.autocomplete").get_autocompletion_items
+        }
+    )
 end
 
 return M
