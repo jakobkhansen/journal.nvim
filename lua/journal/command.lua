@@ -2,31 +2,38 @@ local M = {}
 
 local dateparser = require('journal.dateparser')
 local fs = require('journal.filesystem')
+local config = require('journal.config').get()
+local Date = require('journal.date').Date
+
+
+local function parse_first_argument(arg)
+    if (config.entries[arg] == nil) then
+        -- TODO invalid type
+        print('Invalid type')
+        return nil
+    end
+
+    return config.entries[arg]
+end
 
 local execute_journal_command = function(args)
-    -- Try parse date
-    local date = dateparser.parse_date(args.fargs)
-    if (date ~= nil) then
-        fs.open_day_entry(date)
-        return
+    local entry_config = nil
+    local date = nil
+
+    if (#args.fargs > 0) then
+        entry_config = parse_first_argument(args.fargs[1])
+    else
+        entry_config = config.entries[vim.fn.keys(config.entries)[1]]
     end
 
-    if (args.fargs[1] == 'week') then
-        fs.open_week_entry(Date:today())
-        return
+    if (#args.fargs > 1) then
+        -- TODO invalid date
+        date = dateparser.parse_date(args.fargs[2], entry_config)
+    else
+        date = Date:today()
     end
 
-    if (args.fargs[1] == 'month') then
-        fs.open_month_entry(Date:today())
-        return
-    end
-
-    if (args.fargs[1] == 'year') then
-        fs.open_year_entry(Date:today())
-        return
-    end
-
-    print('Invalid journal entry') -- TODO logging
+    fs.open_entry(date, entry_config)
 end
 
 M.setup = function()

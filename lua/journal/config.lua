@@ -6,18 +6,28 @@ local defaults = {
     filetype = 'md',
     dir = '~/journal',
     date_format = '%d/%m/%Y',
-    journal_format = {
-        day = '%Y/%m-%B/daily/%d-%A',
-        week = '%Y/%m-%B/weekly/week-%W',
-        month = '%Y/%m-%B/%B',
-        year = '%Y/%Y',
+    entries = {
+        day = {
+            format = '%Y/%m-%B/daily/%d-%A',
+            template = "# %A %B %d %Y\n",
+            frequency = { day = 1, month = 0, year = 0 },
+        },
+        week = {
+            format = '%Y/%m-%B/weekly/week-%W',
+            template = "# Week %W %B %Y\n",
+            frequency = { day = 7, month = 0, year = 0 }
+        },
+        month = {
+            format = '%Y/%m-%B/%B',
+            template = "# %B %Y\n",
+            frequency = { day = 0, month = 1, year = 0 }
+        },
+        year = {
+            format = '%Y/%Y',
+            template = "# %Y\n",
+            frequency = { day = 0, month = 0, year = 1 }
+        },
     },
-    templates = {
-        day = "# %A %B %d %Y\n",
-        week = "# Week %W %B %Y\n",
-        month = "# %B %Y\n",
-        year = "# %Y\n",
-    }
 }
 
 M.get = function()

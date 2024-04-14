@@ -4,15 +4,7 @@ local Date = require('journal.date').Date
 
 local config = require('journal.config').get()
 
-local wdays = {
-    monday = 1,
-    tuesday = 2,
-    wednesday = 3,
-    thursday = 4,
-    friday = 5,
-    saturday = 6,
-    sunday = 7
-}
+local utils = require('journal.utils')
 
 local function try_parse_date_string(date_string)
     local date = vim.fn.strptime(config.date_format, date_string)
@@ -26,32 +18,24 @@ end
 
 -- Takes a table of args from ":Journal" command
 -- Returns a Data object
-M.parse_date = function(date)
-    if (next(date) == nil) then
-        return Date:today()
+M.parse_date = function(arg, entry_config)
+    arg = string.lower(arg)
+    if arg == 'last' then
+        return Date:last(entry_config)
     end
-    if (string.lower(date[1]) == 'today') then
-        return Date:today()
+    if arg == 'next' then
+        return Date:next(entry_config)
     end
-    if (string.lower(date[1]) == 'yesterday') then
-        return Date:yesterday()
-    end
-    if (string.lower(date[1]) == 'tomorrow') then
-        return Date:tomorrow()
-    end
-    if (
-        date[1]:sub(1, 1) == '-'
-        or date[1]:sub(1, 1) == '+'
-        or date[1]:sub(1, 1) == '0'
-    ) then
-        return Date:relative(tonumber(date[1]))
+    if tonumber(arg) ~= nil then
+        local num = tonumber(arg)
+        return Date:from_config(entry_config, num)
     end
     -- Jumps to the current weeks instance of wday
-    if (wdays[date[1]:lower()] ~= nil) then
-        return Date:weekday(wdays[date[1]:lower()])
+    if utils.weekdays[arg] ~= nil then
+        return Date:weekday(utils.weekdays[arg])
     end
 
-    return try_parse_date_string(date[1]:lower())
+    return try_parse_date_string(arg)
 end
 
 

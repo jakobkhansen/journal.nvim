@@ -40,40 +40,16 @@ local function create_if_not_exists(entry, date, template)
     end
 end
 
-M.open_entry = function(entry)
-    vim.cmd('edit ' .. entry)
+local function open_file(file)
+    vim.cmd('e ' .. file)
 end
 
-M.open_day_entry = function(date)
-    local template = config.templates.day or ""
-    local journal_file = get_entry_path(date, config.journal_format.day)
+M.open_entry = function(date, entry_config)
+    local template = entry_config.template or ""
+    local journal_file = get_entry_path(date, entry_config.format)
 
     create_if_not_exists(journal_file, date, template)
-    M.open_entry(journal_file)
-end
-
-M.open_week_entry = function(date)
-    local template = config.templates.week or ""
-    local journal_file = get_entry_path(date, config.journal_format.week)
-
-    create_if_not_exists(journal_file, date, template)
-    M.open_entry(journal_file)
-end
-
-M.open_month_entry = function(date)
-    local template = config.templates.month or ""
-    local journal_file = get_entry_path(date, config.journal_format.month)
-
-    create_if_not_exists(journal_file, date, template)
-    M.open_entry(journal_file)
-end
-
-M.open_year_entry = function(date)
-    local template = config.templates.year or ""
-    local journal_file = get_entry_path(date, config.journal_format.year)
-
-    create_if_not_exists(journal_file, date, template)
-    M.open_entry(journal_file)
+    open_file(journal_file)
 end
 
 return M

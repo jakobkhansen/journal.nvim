@@ -1,26 +1,19 @@
 local M = {}
--- Meta class
+
+local utils = require('journal.utils')
+
 Date = { day = 0, month = 0, year = 0, wday = 0 }
 
--- Derived class method new
-
-function Date:new(day, month, year)
-    local o = {}
-    setmetatable(o, self)
-    self.__index = self
-    self.day = day or 0
-    self.month = month or 0
-    self.year = year
-    return o
-end
-
-function Date:relative(days_delta)
+function Date:relative(delta)
     local o = {}
     setmetatable(o, self)
     self.__index = self
 
     local today = os.date("*t")
-    today.day = today.day + days_delta
+    today.day = today.day + delta.day
+    today.month = today.month + delta.month
+    today.year = today.year + delta.year
+
     local relative = os.date("*t", os.time(today))
 
     self.day = relative.day
@@ -30,16 +23,24 @@ function Date:relative(days_delta)
     return o
 end
 
+function Date:from_config(config, multiplier)
+    multiplier = multiplier or 1
+    local delta = utils.multiply_values(config.frequency, multiplier)
+    return Date:relative(delta)
+end
+
 function Date:today()
-    return Date:relative(0)
+    return Date:relative({ day = 0, month = 0, year = 0 })
 end
 
-function Date:yesterday()
-    return Date:relative(-1)
+function Date:last(config)
+    local delta = utils.multiply_values(config.frequency, -1)
+    return Date:relative(delta)
 end
 
-function Date:tomorrow()
-    return Date:relative(1)
+function Date:next(config)
+    local delta = utils.multiply_values(config.frequency, 1)
+    return Date:relative(delta)
 end
 
 -- Returns date of this weeks instance of wday
