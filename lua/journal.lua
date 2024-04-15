@@ -1,8 +1,8 @@
-local M = {}
+local public = require("journal.public")
 
-M.setup = function(opts)
+public.setup = function(opts)
     require('journal.config').setup(opts)
     require('journal.command').setup()
 end
 
-return M
+return public

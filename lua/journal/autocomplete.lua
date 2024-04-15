@@ -27,10 +27,7 @@ local function get_modifiers(type)
         Date:today():to_format(config.date_format),
     }
 
-    if (type_config.frequency.day == 1)
-    then
-        utils.append_lists(output, vim.fn.keys(utils.weekdays))
-    end
+    utils.append_lists(output, vim.fn.keys(utils.weekdays))
 
     return output
 end

@@ -34,12 +34,14 @@ function Date:today()
 end
 
 function Date:last(config)
-    local delta = utils.multiply_values(config.frequency, -1)
+    local frequency = config.frequency or { day = 1, month = 0, year = 0 }
+    local delta = utils.multiply_values(frequency, -1)
     return Date:relative(delta)
 end
 
 function Date:next(config)
-    local delta = utils.multiply_values(config.frequency, 1)
+    local frequency = config.frequency or { day = 1, month = 0, year = 0 }
+    local delta = utils.multiply_values(frequency, 1)
     return Date:relative(delta)
 end
 

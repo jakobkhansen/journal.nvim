@@ -9,7 +9,7 @@ local defaults = {
     entries = {
         day = {
             format = '%Y/%m-%B/daily/%d-%A',
-            template = "# %A %B %d %Y\n",
+            template = '# %A %B %d %Y\n',
             frequency = { day = 1, month = 0, year = 0 },
         },
         week = {
