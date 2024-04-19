@@ -29,16 +29,10 @@ local journal_command = function(args)
 end
 
 M.execute = function(args)
-    local current_type = nil
-    if #args > 0 then
-        current_type = parse(config.entries, args[1])
-    else
-        current_type = config.entries[vim.fn.keys(config.entries)[1]]
-    end
-    table.remove(args, 1)
+    local current_type = config.journal
 
-    while current_type ~= nil and #args > 0 and current_type.sub_entries ~= nil do
-        current_type = parse(current_type.sub_entries, args[1]) or current_type
+    while current_type ~= nil and #args > 0 and current_type.entries ~= nil do
+        current_type = parse(current_type.entries, args[1]) or current_type
         table.remove(args, 1)
     end
 
