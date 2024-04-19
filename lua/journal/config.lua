@@ -4,7 +4,7 @@ local M = {}
 
 local defaults = {
     filetype = 'md',
-    dir = '~/journal',
+    root = '~/journal',
     date_format = '%d/%m/%Y',
     entries = {
         day = {
@@ -27,6 +27,36 @@ local defaults = {
             template = "# %Y\n",
             frequency = { day = 0, month = 0, year = 1 }
         },
+        projectA = {
+            format = 'projectA/notes',
+            template = "# Project A\n",
+            sub_entries = {
+                day = {
+                    format = 'projectA/%Y/%m-%B/daily/%d-%A',
+                    template = '# Project A: %A %B %d %Y\n',
+                    frequency = { day = 1, month = 0, year = 0 },
+                },
+                week = {
+                    format = 'ProjectA/%Y/%m-%B/weekly/week-%W',
+                    template = "# Project A: Week %W %B %Y\n",
+                    frequency = { day = 7, month = 0, year = 0 }
+                }
+            }
+        },
+        projectB = {
+            sub_entries = {
+                day = {
+                    format = 'projectB/%Y/%m-%B/daily/%d-%A',
+                    template = '# Project B: %A %B %d %Y\n',
+                    frequency = { day = 1, month = 0, year = 0 },
+                },
+                week = {
+                    format = 'ProjectB/%Y/%m-%B/weekly/week-%W',
+                    template = "# Project B: Week %W %B %Y\n",
+                    frequency = { day = 7, month = 0, year = 0 }
+                }
+            }
+        }
     },
 }
 
@@ -35,10 +65,10 @@ M.get = function()
 end
 
 M.journal_dir = function()
-    if type(defaults.dir) == 'function' then
-        return defaults.dir()
+    if type(defaults.root) == 'function' then
+        return defaults.root()
     end
-    return defaults.dir
+    return defaults.root
 end
 
 local function is_dict_like(tbl)

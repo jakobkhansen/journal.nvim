@@ -20,6 +20,9 @@ end
 -- Takes a table of args from ":Journal" command
 -- Returns a Data object
 M.parse_date = function(arg, entry_config)
+    if arg == nil then
+        return Date:today()
+    end
     arg = string.lower(arg)
     if arg == 'last' then
         return Date:last(entry_config)

@@ -6,14 +6,22 @@ local config = require('journal.config').get()
 local Date = require('journal.date').Date
 
 
-local function parse_first_argument(arg)
-    if (config.entries[arg] == nil) then
+local function parse(config, arg)
+    if (config[arg] == nil) then
         -- TODO invalid type
         print('Invalid type')
         return nil
     end
 
-    return config.entries[arg]
+    return config[arg]
+end
+
+local valid_type = function(entry_config)
+    if entry_config == nil or entry_config.format == nil
+    then
+        print('Invalid type')
+        return false
+    end
 end
 
 local journal_command = function(args)
@@ -21,27 +29,26 @@ local journal_command = function(args)
 end
 
 M.execute = function(args)
-    local entry_config = nil
-    local date = nil
-
-    if (#args > 0) then
-        entry_config = parse_first_argument(args[1])
+    local current_type = nil
+    if #args > 0 then
+        current_type = parse(config.entries, args[1])
     else
-        entry_config = config.entries[vim.fn.keys(config.entries)[1]]
+        current_type = config.entries[vim.fn.keys(config.entries)[1]]
+    end
+    table.remove(args, 1)
+
+    while current_type ~= nil and #args > 0 and current_type.sub_entries ~= nil do
+        current_type = parse(current_type.sub_entries, args[1]) or current_type
+        table.remove(args, 1)
     end
 
-    if (#args > 1) then
-        -- TODO invalid date
-        date = dateparser.parse_date(args[2], entry_config)
-    else
-        date = Date:today()
-    end
+    local date = dateparser.parse_date(args[1], current_type)
 
-    if (entry_config == nil or date == nil) then
+    if valid_type(current_type) == false or date == nil then
         return
     end
 
-    fs.open_entry(date, entry_config)
+    fs.open_entry(date, current_type)
 end
 
 M.setup = function()
