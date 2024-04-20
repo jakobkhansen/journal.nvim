@@ -52,20 +52,12 @@ M.journal_dir = function()
     return defaults.root
 end
 
-local function is_dict_like(tbl)
-    return type(tbl) == 'table' and not vim.tbl_islist(tbl)
-end
-
 local function merge_configs(user_config, config)
     if user_config == nil then
         user_config = {}
     end
     for key, value in pairs(user_config) do
-        if is_dict_like(config[key]) then
-            merge_configs(value, config[key])
-        else
-            config[key] = value
-        end
+        config[key] = value
     end
 end
 
