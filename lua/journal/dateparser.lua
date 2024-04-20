@@ -25,7 +25,7 @@ M.parse_date = function(arg, entry_config)
     end
     -- Jumps to the current weeks instance of wday
     if utils.weekdays[arg] ~= nil then
-        return Date:weekday(utils.weekdays[arg])
+        return Date:weekday(entry_config, utils.weekdays[arg])
     end
 
     return Date:from_datestring(entry_config, config.date_format, arg)

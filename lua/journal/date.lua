@@ -53,11 +53,11 @@ function Date:next(config)
 end
 
 -- Returns date of this weeks instance of wday
-function Date:weekday(wday)
+function Date:weekday(config, wday)
     local today_w = tonumber(os.date("%u"))
     local days_delta = wday - today_w
 
-    return Date:relative({ day = days_delta, month = 0, year = 0 })
+    return Date:relative(config.format, { day = days_delta, month = 0, year = 0 })
 end
 
 function Date:from_datestring(config, format, datestring)
