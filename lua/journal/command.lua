@@ -8,8 +8,6 @@ local Date = require('journal.date').Date
 
 local function parse(config, arg)
     if (config[arg] == nil) then
-        -- TODO invalid type
-        print('Invalid type')
         return nil
     end
 
@@ -19,7 +17,6 @@ end
 local valid_type = function(entry_config)
     if entry_config == nil or entry_config.format == nil
     then
-        print('Invalid type')
         return false
     end
 end
@@ -32,13 +29,20 @@ M.execute = function(args)
     local current_type = config.journal
 
     while current_type ~= nil and #args > 0 and current_type.entries ~= nil do
-        current_type = parse(current_type.entries, args[1]) or current_type
+        local next_type = parse(current_type.entries, args[1])
+
+        if next_type == nil then
+            break
+        end
+
+        current_type = next_type
         table.remove(args, 1)
     end
 
     local date = dateparser.parse_date(args[1], current_type)
 
     if valid_type(current_type) == false or date == nil then
+        print('Invalid command') -- TODO logging
         return
     end
 
