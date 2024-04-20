@@ -3,7 +3,7 @@ local M = {}
 local dateparser = require('journal.dateparser')
 local fs = require('journal.filesystem')
 local config = require('journal.config').get()
-local Date = require('journal.date').Date
+local log = require('journal.logging')
 
 
 local function parse(config, arg)
@@ -42,7 +42,7 @@ M.execute = function(args)
     local date = dateparser.parse_date(args[1], current_type)
 
     if valid_type(current_type) == false or date == nil then
-        print('Invalid command') -- TODO logging
+        log.warn('Invalid entry type or date modifier')
         return
     end
 

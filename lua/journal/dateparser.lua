@@ -10,7 +10,6 @@ local function try_parse_date_string(date_string)
     local date = vim.fn.strptime(config.date_format, date_string)
 
     if (date == 0) then
-        print('Invalid date') -- TODO warn
         return nil
     end
 

@@ -1,6 +1,7 @@
 local M = {}
 
 local config = require('journal.config').get()
+local log = require('journal.logging')
 
 
 
@@ -26,8 +27,8 @@ local function create_entry(entry, date, template)
     local file = io.open(entry, 'w')
 
     if file == nil then
-        print('Error creating file') -- TODO logging
-        return nil
+        log.warn('Error creating file')
+        return
     end
 
     file:write(template_string)
