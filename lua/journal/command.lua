@@ -43,10 +43,12 @@ M.execute = function(args)
 
     if valid_type(current_type) == false or date == nil then
         log.warn('Invalid entry type or date modifier')
-        return
+        return false
     end
 
     fs.open_entry(date, current_type)
+
+    return true
 end
 
 M.setup = function()

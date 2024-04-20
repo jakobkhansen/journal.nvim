@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "Lua.diagnostics.disable": [
+    "assign-type-mismatch",
+    "cast-local-type",
+    "missing-parameter"
+  ],
+  "Lua.diagnostics.globals": [
+    "vim",
+    "P",
+    "describe",
+    "it",
+    "before_each",
+    "after_each"
+  ]
+}
