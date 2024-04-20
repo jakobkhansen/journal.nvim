@@ -3,24 +3,24 @@
 local M = {}
 
 local defaults = {
-    filetype = 'md', -- Filetype to use for new journal entries
-    root = '~/journal', -- Root directory for journal entries
-    date_format = '%d/%m/%Y', -- Date format for :Journal <date-modifier>
+    filetype = 'md',                    -- Filetype to use for new journal entries
+    root = '~/journal',                 -- String or () => String. Root directory for journal entries
+    date_format = '%d/%m/%Y',           -- Date format for `:Journal <date-modifier>`
     autocomplete_date_modifier = "end", -- "always"|"never"|"end". Enable date modifier autocompletion
 
     -- Configuration for journal entries
     journal = {
-        -- Default configuration for :Journal <date-modifier>
+        -- Default configuration for `:Journal <date-modifier>`
         format = '%Y/%m-%B/daily/%d-%A',
         template = '# %A %B %d %Y custom\n',
         frequency = { day = 1, month = 0, year = 0 },
 
-        -- Nested configurations for :Journal <type> <type> ... <date-modifier>
+        -- Nested configurations for `:Journal <type> <type> ... <date-modifier>`
         entries = {
             day = {
-                format = '%Y/%m-%B/daily/%d-%A',
-                template = '# %A %B %d %Y\n',
-                frequency = { day = 1, month = 0, year = 0 },
+                format = '%Y/%m-%B/daily/%d-%A',              -- Format of the journal entry in the filesystem. See `:help strftime` for options
+                template = '# %A %B %d %Y\n',                 -- Template used when creating a new journal entry
+                frequency = { day = 1, month = 0, year = 0 }, -- The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
             },
             week = {
                 format = '%Y/%m-%B/weekly/week-%W',
@@ -37,36 +37,6 @@ local defaults = {
                 template = "# %Y\n",
                 frequency = { day = 0, month = 0, year = 1 }
             },
-            projectA = {
-                format = 'projectA/notes',
-                template = "# Project A\n",
-                entries = {
-                    day = {
-                        format = 'projectA/%Y/%m-%B/daily/%d-%A',
-                        template = '# Project A: %A %B %d %Y\n',
-                        frequency = { day = 1, month = 0, year = 0 },
-                    },
-                    week = {
-                        format = 'ProjectA/%Y/%m-%B/weekly/week-%W',
-                        template = "# Project A: Week %W %B %Y\n",
-                        frequency = { day = 7, month = 0, year = 0 }
-                    }
-                }
-            },
-            projectB = {
-                entries = {
-                    day = {
-                        format = 'projectB/%Y/%m-%B/daily/%d-%A',
-                        template = '# Project B: %A %B %d %Y\n',
-                        frequency = { day = 1, month = 0, year = 0 },
-                    },
-                    week = {
-                        format = 'ProjectB/%Y/%m-%B/weekly/week-%W',
-                        template = "# Project B: Week %W %B %Y\n",
-                        frequency = { day = 7, month = 0, year = 0 }
-                    }
-                }
-            }
         },
     }
 }
