@@ -52,9 +52,14 @@ M.get_autocompletion_items = function(_, cmdline)
         index = index + 1
     end
 
+    if current_type == nil then
+        return {}
+    end
+
     local output = {}
 
     local has_more_entries = current_type ~= nil and current_type.entries ~= nil
+
     if has_more_entries then
         utils.append_lists(output, get_entry_type_completion(current_type.entries))
     end

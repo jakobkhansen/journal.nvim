@@ -66,9 +66,10 @@ function Date:from_datestring(config, format, datestring)
     setmetatable(o, self)
     self.__index = self
 
-    print(vim.fn.strptime(format, datestring))
-
     local timestamp = vim.fn.strptime(format, datestring)
+    if timestamp == 0 then
+        return nil
+    end
     -- Remove all time information which is not explicitly defined in the format
     local date_in_format = os.date(config.format, timestamp)
     local date = os.date("*t", vim.fn.strptime(config.format, date_in_format))
