@@ -25,7 +25,7 @@ local journal_command = function(args)
     M.execute(args.fargs)
 end
 
-M.execute = function(args)
+M.parse_command = function(args)
     local current_type = config.journal
 
     while current_type ~= nil and #args > 0 and current_type.entries ~= nil do
@@ -42,8 +42,18 @@ M.execute = function(args)
     local date = dateparser.parse_date(args[1], current_type)
 
     if valid_type(current_type) == false or date == nil then
+        return nil, nil
+    end
+
+    return current_type, date
+end
+
+M.execute = function(args)
+    local current_type, date = M.parse_command(args)
+
+    if valid_type(current_type) == false or date == nil then
         log.warn('Invalid entry type or date modifier')
-        return false
+        return
     end
 
     fs.open_entry(date, current_type)

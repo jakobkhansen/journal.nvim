@@ -19,7 +19,7 @@ M.parse_date = function(arg, entry_config)
     if arg == 'next' then
         return Date:next(entry_config)
     end
-    if tonumber(arg) ~= nil then
+    if utils.string_is_decimal(arg) then
         local num = tonumber(arg)
         return Date:from_config(entry_config, num)
     end

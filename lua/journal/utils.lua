@@ -39,5 +39,9 @@ M.multiply_values = function(table, multiplier)
     return output
 end
 
+M.string_is_decimal = function(string)
+    return string:match("^[%-|%+]?%d+$") ~= nil
+end
+
 
 return M
