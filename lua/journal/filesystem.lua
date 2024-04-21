@@ -2,12 +2,19 @@ local M = {}
 
 local config = require('journal.config').get()
 local log = require('journal.logging')
+local utils = require('journal.utils')
 
 
 
 local function get_entry_path(date, format)
     local journal_dir = vim.fn.expand(require('journal.config').journal_dir())
-    return journal_dir .. '/' .. os.date(format, os.time(date)) .. '.' .. config.filetype
+    local filepath = journal_dir .. '/' .. os.date(format, os.time(date)) .. '.' .. config.filetype
+
+    if utils.is_windows() then
+        filepath = utils.translate_to_windows_path(filepath)
+    end
+
+    return filepath
 end
 
 local function entry_exists(entry)

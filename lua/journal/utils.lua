@@ -43,5 +43,12 @@ M.string_is_decimal = function(string)
     return string:match("^[%-|%+]?%d+$") ~= nil
 end
 
+M.is_windows = function()
+    return jit.os == "Windows"
+end
+
+M.translate_to_windows_path = function(path)
+    return path:gsub("/", "\\")
+end
 
 return M
