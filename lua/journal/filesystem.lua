@@ -22,11 +22,8 @@ local function entry_exists(entry)
 end
 
 local function create_directories(entry)
-    local success, error = os.execute(string.format("mkdir -p $(dirname %s)", entry))
-    if not success then
-        return nil, error
-    end
-    return true
+    local dirname = vim.fs.dirname(entry)
+    return vim.fn.mkdir(dirname, 'p')
 end
 
 local function create_entry(entry, date, template)
