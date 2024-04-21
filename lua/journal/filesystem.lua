@@ -14,7 +14,7 @@ local function get_entry_path(date, format)
         filepath = utils.translate_to_windows_path(filepath)
     end
 
-    return filepath
+    return vim.fn.expand(filepath)
 end
 
 local function entry_exists(entry)
