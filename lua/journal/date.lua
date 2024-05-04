@@ -2,9 +2,9 @@ local M = {}
 
 local utils = require('journal.utils')
 
-Date = { day = 0, month = 0, year = 0, wday = 0 }
+Date = { day = 0, month = 0, year = 0, wday = 0, hour = 0, min = 0, sec = 0 }
 
-function Date:new(day, month, year, wday)
+function Date:new(day, month, year, wday, hour, min, sec)
     local o = {}
     setmetatable(o, self)
     self.__index = self
@@ -13,6 +13,9 @@ function Date:new(day, month, year, wday)
     self.month = month
     self.year = year
     self.wday = wday
+    self.hour = hour
+    self.min = min
+    self.sec = sec
 
     return o
 end
@@ -24,9 +27,12 @@ function Date:relative(delta)
 
     local today = os.date("*t")
 
-    today.day = today.day + delta.day
-    today.month = today.month + delta.month
-    today.year = today.year + delta.year
+    today.day = today.day + (delta.day or 0)
+    today.month = today.month + (delta.month or 0)
+    today.year = today.year + (delta.year or 0)
+    today.hour = today.hour + (delta.hour or 0)
+    today.min = today.min + (delta.min or 0)
+    today.sec = today.sec + (delta.sec or 0)
 
     local relative = os.date("*t", os.time(today))
 
@@ -34,6 +40,9 @@ function Date:relative(delta)
     self.month = relative.month
     self.year = relative.year
     self.wday = relative.wday
+    self.hour = relative.hour
+    self.min = relative.min
+    self.sec = relative.sec
     return o
 end
 
@@ -59,7 +68,7 @@ function Date:next(config)
     return Date:relative(delta)
 end
 
--- Returns date of this months instance of monthday (number) 
+-- Returns date of this months instance of monthday (number)
 function Date:monthday(monthday)
     local today = os.date("*t")
     today.day = monthday
@@ -96,6 +105,9 @@ function Date:from_datestring(format, datestring)
     self.month = date.month
     self.year = date.year
     self.wday = date.wday
+    self.hour = date.hour
+    self.min = date.min
+    self.sec = date.sec
 
     return o
 end

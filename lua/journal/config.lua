@@ -20,23 +20,28 @@ local defaults = {
             day = {
                 format = '%Y/%m-%B/daily/%d-%A',              -- Format of the journal entry in the filesystem. See `:help strftime` for options
                 template = '# %A %B %d %Y\n',                 -- Template used when creating a new journal entry
-                frequency = { day = 1, month = 0, year = 0 }, -- The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
+                frequency = { day = 1 }, -- The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
             },
             week = {
                 format = '%Y/%m-%B/weekly/week',
                 template = "# Week %W %B %Y\n",
-                frequency = { day = 7, month = 0, year = 0 },
-                default_date_modifier = "monday" -- Default date modifier, means `:Journal week` = `:Journal week monday`
+                frequency = { day = 7 },
+                default_date_modifier = "monday" -- Default date modifier, makes `:Journal week` = `:Journal week monday`
             },
             month = {
                 format = '%Y/%m-%B/%B',
                 template = "# %B %Y\n",
-                frequency = { day = 0, month = 1, year = 0 }
+                frequency = { month = 1 }
             },
             year = {
                 format = '%Y/%Y',
                 template = "# %Y\n",
-                frequency = { day = 0, month = 0, year = 1 }
+                frequency = { year = 1 }
+            },
+            hour = {
+                format = '%H',
+                template = "# %H\n",
+                frequency = { hour = 1 }
             },
         },
     }
