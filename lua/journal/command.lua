@@ -56,7 +56,6 @@ M.execute = function(args)
         return
     end
 
-    print(vim.inspect(date))
     fs.open_entry(date, current_type)
 
     return true

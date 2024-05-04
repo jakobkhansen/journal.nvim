@@ -13,14 +13,14 @@ local defaults = {
         -- Default configuration for `:Journal <date-modifier>`
         format = '%Y/%m-%B/daily/%d-%A',
         template = '# %A %B %d %Y custom\n',
-        frequency = { day = 1, month = 0, year = 0 },
+        frequency = { day = 1 },
 
         -- Nested configurations for `:Journal <type> <type> ... <date-modifier>`
         entries = {
             day = {
-                format = '%Y/%m-%B/daily/%d-%A',              -- Format of the journal entry in the filesystem. See `:help strftime` for options
-                template = '# %A %B %d %Y\n',                 -- Template used when creating a new journal entry
-                frequency = { day = 1 }, -- The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
+                format = '%Y/%m-%B/daily/%d-%A', -- Format of the journal entry in the filesystem. See `:help strftime` for options
+                template = '# %A %B %d %Y\n',    -- Template used when creating a new journal entry
+                frequency = { day = 1 },         -- The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
             },
             week = {
                 format = '%Y/%m-%B/weekly/week',
@@ -37,11 +37,6 @@ local defaults = {
                 format = '%Y/%Y',
                 template = "# %Y\n",
                 frequency = { year = 1 }
-            },
-            hour = {
-                format = '%H',
-                template = "# %H\n",
-                frequency = { hour = 1 }
             },
         },
     }
