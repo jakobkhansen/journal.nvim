@@ -12,7 +12,7 @@ function Date:relative(format, delta)
     local today = nil
     if format then
         -- Remove all time information which is not explicitly defined in the format
-        today = os.date("*t", vim.fn.strptime(format, os.date(format)))
+        today = os.date("*t", utils.strptime(format, os.date(format)))
     else
         today = os.date("*t")
     end
@@ -66,13 +66,13 @@ function Date:from_datestring(config, format, datestring)
     setmetatable(o, self)
     self.__index = self
 
-    local timestamp = vim.fn.strptime(format, datestring)
+    local timestamp = utils.strptime(format, datestring)
     if timestamp == 0 then
         return nil
     end
     -- Remove all time information which is not explicitly defined in the format
     local date_in_format = os.date(config.format, timestamp)
-    local date = os.date("*t", vim.fn.strptime(config.format, date_in_format))
+    local date = os.date("*t", utils.strptime(config.format, date_in_format))
 
     if date == nil then
         return nil

@@ -1,3 +1,4 @@
+local windows = require("journal.windows")
 local M = {}
 
 M.weekdays = {
@@ -50,5 +51,14 @@ end
 M.translate_to_windows_path = function(path)
     return path:gsub("/", "\\")
 end
+
+M.strptime = function(format, timestring)
+    if (M.is_windows()) then
+        return windows.windows_strptime(format, timestring)
+    end
+
+    return vim.fn.strptime(format, timestring)
+end
+
 
 return M
