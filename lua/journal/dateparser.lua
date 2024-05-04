@@ -7,10 +7,13 @@ local config = require('journal.config').get()
 local utils = require('journal.utils')
 
 -- Takes a table of args from ":Journal" command
--- Returns a Data object
+-- Returns a Date object
 M.parse_date = function(arg, entry_config)
+    -- If no date-modifier is provided, use the default
+    arg = arg or entry_config.default_date_modifier
+
     if arg == nil then
-        return Date:today(entry_config)
+        return Date:today()
     end
     arg = string.lower(arg)
     if arg == 'last' then
@@ -25,10 +28,10 @@ M.parse_date = function(arg, entry_config)
     end
     -- Jumps to the current weeks instance of wday
     if utils.weekdays[arg] ~= nil then
-        return Date:weekday(entry_config, utils.weekdays[arg])
+        return Date:weekday(utils.weekdays[arg])
     end
 
-    return Date:from_datestring(entry_config, config.date_format, arg)
+    return Date:from_datestring(config.date_format, arg)
 end
 
 

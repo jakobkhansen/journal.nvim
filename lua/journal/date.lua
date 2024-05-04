@@ -4,18 +4,13 @@ local utils = require('journal.utils')
 
 Date = { day = 0, month = 0, year = 0, wday = 0 }
 
-function Date:relative(format, delta)
+function Date:relative(delta)
     local o = {}
     setmetatable(o, self)
     self.__index = self
 
-    local today = nil
-    if format then
-        -- Remove all time information which is not explicitly defined in the format
-        today = os.date("*t", utils.strptime(format, os.date(format)))
-    else
-        today = os.date("*t")
-    end
+    local today = os.date("*t")
+
     today.day = today.day + delta.day
     today.month = today.month + delta.month
     today.year = today.year + delta.year
@@ -32,35 +27,34 @@ end
 function Date:from_config(config, multiplier)
     multiplier = multiplier or 1
     local delta = utils.multiply_values(config.frequency, multiplier)
-    return Date:relative(config.format, delta)
+    return Date:relative(delta)
 end
 
-function Date:today(config)
-    local format = config and config.format or nil
-    return Date:relative(format, { day = 0, month = 0, year = 0 })
+function Date:today()
+    return Date:relative({ day = 0, month = 0, year = 0 })
 end
 
 function Date:last(config)
     local frequency = config.frequency or { day = 1, month = 0, year = 0 }
     local delta = utils.multiply_values(frequency, -1)
-    return Date:relative(config.format, delta)
+    return Date:relative(delta)
 end
 
 function Date:next(config)
     local frequency = config.frequency or { day = 1, month = 0, year = 0 }
     local delta = utils.multiply_values(frequency, 1)
-    return Date:relative(config.format, delta)
+    return Date:relative(delta)
 end
 
 -- Returns date of this weeks instance of wday
-function Date:weekday(config, wday)
+function Date:weekday(wday)
     local today_w = tonumber(os.date("%u"))
     local days_delta = wday - today_w
 
-    return Date:relative(config.format, { day = days_delta, month = 0, year = 0 })
+    return Date:relative({ day = days_delta, month = 0, year = 0 })
 end
 
-function Date:from_datestring(config, format, datestring)
+function Date:from_datestring(format, datestring)
     local o = {}
 
     setmetatable(o, self)
@@ -70,9 +64,8 @@ function Date:from_datestring(config, format, datestring)
     if timestamp == 0 then
         return nil
     end
-    -- Remove all time information which is not explicitly defined in the format
-    local date_in_format = os.date(config.format, timestamp)
-    local date = os.date("*t", utils.strptime(config.format, date_in_format))
+
+    local date = os.date("*t", timestamp)
 
     if date == nil then
         return nil
