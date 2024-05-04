@@ -22,9 +22,13 @@ M.parse_date = function(arg, entry_config)
     if arg == 'next' then
         return Date:next(entry_config)
     end
+    if (arg:sub(1, 1) == '-' or arg:sub(1, 1) == '+') then
+        local num = tonumber(arg)
+        return Date:multiplier(entry_config, num)
+    end
     if utils.string_is_decimal(arg) then
         local num = tonumber(arg)
-        return Date:from_config(entry_config, num)
+        return Date:monthday(num)
     end
     -- Jumps to the current weeks instance of wday
     if utils.weekdays[arg] ~= nil then

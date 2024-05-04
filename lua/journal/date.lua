@@ -4,6 +4,19 @@ local utils = require('journal.utils')
 
 Date = { day = 0, month = 0, year = 0, wday = 0 }
 
+function Date:new(day, month, year, wday)
+    local o = {}
+    setmetatable(o, self)
+    self.__index = self
+
+    self.day = day
+    self.month = month
+    self.year = year
+    self.wday = wday
+
+    return o
+end
+
 function Date:relative(delta)
     local o = {}
     setmetatable(o, self)
@@ -24,7 +37,7 @@ function Date:relative(delta)
     return o
 end
 
-function Date:from_config(config, multiplier)
+function Date:multiplier(config, multiplier)
     multiplier = multiplier or 1
     local delta = utils.multiply_values(config.frequency, multiplier)
     return Date:relative(delta)
@@ -44,6 +57,14 @@ function Date:next(config)
     local frequency = config.frequency or { day = 1, month = 0, year = 0 }
     local delta = utils.multiply_values(frequency, 1)
     return Date:relative(delta)
+end
+
+-- Returns date of this months instance of monthday (number) 
+function Date:monthday(monthday)
+    local today = os.date("*t")
+    today.day = monthday
+    today = os.date("*t", os.time(today))
+    return Date:new(today.day, today.month, today.year, today.wday)
 end
 
 -- Returns date of this weeks instance of wday
