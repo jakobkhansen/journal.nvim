@@ -12,7 +12,7 @@ local defaults = {
     journal = {
         -- Default configuration for `:Journal <date-modifier>`
         format = '%Y/%m-%B/daily/%d-%A',
-        template = '# %A %B %d %Y custom\n',
+        template = '# %A %B %d %Y\n',
         frequency = { day = 1 },
 
         -- Nested configurations for `:Journal <type> <type> ... <date-modifier>`
