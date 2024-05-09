@@ -80,9 +80,27 @@ table are the options and default values:
 
 ## The `:Journal` command
 
-TODO
+`:Journal <type> <type> ... <date-modifier>` can be used to access all your journal
+entries. `:Journal` takes the following arguments:
+
+- `<type>`: An entry type (e.g. `day`, `week` etc) to determine which entry-type to open. Can be nested.
+- `<date-modifier>`. A date-modifier to determine which date the entry is for. If no date
 
 ### Date-modifiers
+
+The `:Journal` command can take a plethora of different date-modifiers to determine which
+entry should be opened:
+
+- Weekdays (e.g. `monday`, `tuesday`...): The date for the current weeks instance
+  of the given weekday
+- Date-string (e.g. `10/05/2024`): Parses the date-string to a date according to the `date_format` option
+- `+n`/`-n` (e.g. `-1`, `+5`, ...): The date relative to today. Computes the relative
+  date with `n*frequency`, meaning `:Journal week -1` will go one week back, while `:Journal day +1`
+  will one day forward.
+- `last`/`next`: Same as `-1`/`+1`
+- `n` (e.g. `1`, `18`, ...): Gets the date for the nth day of the current month.
+
+## Creating custom and nested entry types
 
 TODO
 
