@@ -18,7 +18,7 @@ local defaults = {
         -- Nested configurations for `:Journal <type> <type> ... <date-modifier>`
         entries = {
             day = {
-                format = '%Y/%m-%B/daily/%d-%A', -- Format of the journal entry in the filesystem. See `:help strftime` for options
+                format = '%Y/%m-%B/daily/%d-%A', -- Format of the journal entry in the filesystem. See `:h strftime` and `man strftime` for details
                 template = '# %A %B %d %Y\n',    -- Template used when creating a new journal entry
                 frequency = { day = 1 },         -- The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
             },
