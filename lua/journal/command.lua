@@ -39,15 +39,16 @@ local parse_date = function(arg, entry)
     end
     arg = string.lower(arg)
     if arg == 'last' then
-        return Date:last(entry)
+        return Date:today():last(entry)
     end
     if arg == 'next' then
-        return Date:next(entry)
+        return Date:today():next(entry)
     end
     if ((arg:sub(1, 1) == '-' or arg:sub(1, 1) == '+')
             and utils.string_is_decimal(arg)) then
         local num = tonumber(arg)
-        return Date:multiplier(entry, num)
+        local delta = utils.multiply_values(entry.frequency, num)
+        return Date:today():relative(delta)
     end
     if utils.string_is_decimal(arg) then
         local num = tonumber(arg)

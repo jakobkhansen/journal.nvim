@@ -17,7 +17,6 @@ M.wordcount = function(string)
     return count
 end
 
-
 M.append_lists = function(first_table, second_table)
     for _, v in ipairs(second_table) do table.insert(first_table, v) end
 end
@@ -37,6 +36,12 @@ end
 M.multiply_values = function(table, multiplier)
     local output = M.shallow_copy(table)
     for k, v in pairs(output) do output[k] = v * multiplier end
+    return output
+end
+
+M.add_tables = function(first_table, second_table)
+    local output = M.shallow_copy(first_table)
+    for k, v in pairs(second_table) do output[k] = v end
     return output
 end
 

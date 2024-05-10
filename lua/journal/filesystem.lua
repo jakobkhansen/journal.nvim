@@ -8,7 +8,7 @@ local utils = require('journal.utils')
 
 local function get_entry_path(date, format)
     local journal_dir = vim.fn.expand(require('journal.config').journal_dir())
-    local filepath = journal_dir .. '/' .. os.date(format, os.time(date)) .. '.' .. config.filetype
+    local filepath = journal_dir .. '/' .. os.date(format, os.time(date.date)) .. '.' .. config.filetype
 
     if utils.is_windows() then
         filepath = utils.translate_to_windows_path(filepath)
