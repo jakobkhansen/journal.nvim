@@ -1,20 +1,20 @@
-# journal.nvim
+# 🖋️ journal.nvim
 
 journal.nvim is a simple yet powerful journaling system for Neovim.
 
-## Features
+## ✨ Features
 
 - Create daily, weekly, monthly or yearly journal entries with sane defaults
 - Extend your journal with custom entry types, allowing grouping, multiple journals and more
-- Define custom templates for each entry type. Custom templates can contain variable date
+- Define custom templates for each entry type. Custom templates can contain date
   information such as the current weekday or month
 - Flexible filesystem. Flat or deeply-nested, group entries based on month or even hour of the day.
-- Everything exposed under a `:Journal` command, with auto-completion for your custom journal entry types
+- Everything exposed under a `:Journal` command, with auto-completion for all your entry types
 - Linux, MacOS and Windows[\*](#windows-support) support
 
 TODO: Video demonstration here
 
-## Installation
+## 📦 Installation
 
 journal.nvim can be installed just like you install any other Neovim plugin.
 
@@ -31,7 +31,7 @@ journal.nvim can be installed just like you install any other Neovim plugin.
 
 TODO: Add Packer at least
 
-## Configuration
+## ⚙️ Configuration
 
 You can configure journal.nvim by passing a table to the setup function. The following
 table are the options and default values:
@@ -78,7 +78,9 @@ table are the options and default values:
 }
 ```
 
-## The `:Journal` command
+### Custom and nested entry types
+
+## 🖋️ The `:Journal` command
 
 `:Journal <type> <type> ... <date-modifier>` can be used to access all your journal
 entries. `:Journal` takes the following arguments:
@@ -100,11 +102,7 @@ entry should be opened:
 - `last`/`next`: Same as `-1`/`+1`
 - `n` (e.g. `1`, `18`, ...): Gets the date for the nth day of the current month.
 
-## Creating custom and nested entry types
-
-TODO
-
-## Windows support
+## 🪟 Windows support
 
 journal.nvim will work great for most users on Windows. However, due to the missing
 implementation of `vim.fn.strptime`, accessing a journal entry via the datestring
