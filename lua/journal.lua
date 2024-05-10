@@ -2,7 +2,7 @@ local public = require("journal.public")
 
 public.setup = function(opts)
     require('journal.config').setup(opts)
-    require('journal.command').setup()
+    require('journal.setup').setup()
 end
 
 return public
