@@ -23,7 +23,7 @@ local defaults = {
                 frequency = { day = 1 },         -- The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
             },
             week = {
-                format = '%Y/%m-%B/weekly/week-%U',
+                format = '%Y/%m-%B/weekly/week-%W',
                 template = "# Week %W %B %Y\n",
                 frequency = { day = 7 },
                 date_modifier = "monday" -- Applied before other date modifier given to `:Journal`

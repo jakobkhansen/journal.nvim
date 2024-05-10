@@ -41,7 +41,7 @@ end
 
 M.add_tables = function(first_table, second_table)
     local output = M.shallow_copy(first_table)
-    for k, v in pairs(second_table) do output[k] = v end
+    for k, v in pairs(second_table) do output[k] = output[k] + v end
     return output
 end
 
