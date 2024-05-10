@@ -44,7 +44,8 @@ local parse_date = function(arg, entry)
     if arg == 'next' then
         return Date:next(entry)
     end
-    if (arg:sub(1, 1) == '-' or arg:sub(1, 1) == '+') then
+    if ((arg:sub(1, 1) == '-' or arg:sub(1, 1) == '+')
+            and utils.string_is_decimal(arg)) then
         local num = tonumber(arg)
         return Date:multiplier(entry, num)
     end
