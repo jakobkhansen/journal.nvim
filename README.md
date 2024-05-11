@@ -84,9 +84,17 @@ All string values can be replaced by functions that return strings. `format` and
 All `format` and `template` options are parsed with `vim.fn.strftime`. To see the available variables, see
 `:h strftime` and `man strftime`. Note that `strftime` can have different behavior based on platform.
 
+### Entry types
+
+Each entry type in the `entries` table correspond to a `:Journal <type>` command. Running
+`:Journal <type>` will create a journal entry file with a path given by the `format`
+option and fills the file with the `template` option. For example `:Journal week` could
+create an entry with the path `2024/05-May/weekly/week-19`, pre-filled with the template
+`# Week 19 May 2024`.
+
 ### Custom entry types
 
-You can define custom entry types in your journal by simply adding more entry types to the
+You can also define custom entry types in your journal by simply adding more entry types to the
 `entries` table. A `quarter` entry type could be configured like so:
 
 ```lua
