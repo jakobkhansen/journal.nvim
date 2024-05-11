@@ -82,22 +82,23 @@ All string values can be replaced by functions that return strings. `format` and
 `template` options also get a `Date` argument.
 
 All `format` and `template` options are parsed with `vim.fn.strftime`. To see the available variables, see
-`:h strftime` and `man strftime`. Note that `strftime` can have different behavior based on your platform.
+`:h strftime` and `man strftime`. Note that `strftime` can have different behavior based on platform.
 
 ### Custom entry types
 
 You can define custom entry types in your journal by simply adding more entry types to the
-`entries` table. A `quarterly` entry type could be configured like so:
+`entries` table. A `quarter` entry type could be configured like so:
 
 ```lua
 {
     journal = {
         entries = {
-            quarterly = {
+            -- Entry type for each quarter of the year
+            quarter = {
                 -- strftime doesn't supply a quarter variable, so we compute it manually
                 format = function(date)
                     local quarter = math.ceil(tonumber(os.date("%m", os.time(date.date))) / 3)
-                    return "%Y/quarterly/" .. quarter
+                    return "%Y/quarter/" .. quarter
                 end,
                 template = function(date)
                     local quarter = math.ceil(os.date("%m", os.time(date.date)) / 3)
@@ -110,7 +111,7 @@ You can define custom entry types in your journal by simply adding more entry ty
 }
 ```
 
-This entry type will generate entries such as `2024/quarterly/1.md`.
+This entry type will generate entry-paths such as `2024/quarter/2.md`.
 
 ### Nested entry types
 
