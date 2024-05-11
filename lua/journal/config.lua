@@ -24,7 +24,7 @@ local defaults = {
                 format = '%Y/%m-%B/weekly/week-%W',
                 template = "# Week %W %B %Y\n",
                 frequency = { day = 7 },
-                date_modifier = "monday" -- Date modifier applied before other date modifier given to `:Journal`
+                date_modifier = "monday" -- Optional. Date modifier applied before other modifier given to `:Journal`
             },
             month = {
                 format = '%Y/%m-%B/%B',
