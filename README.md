@@ -1,6 +1,6 @@
 # 🖋️ journal.nvim
 
-journal.nvim is a simple yet powerful journaling system for Neovim.
+journal.nvim is a highly extensible journaling system for Neovim.
 
 ## ✨ Features
 
@@ -94,7 +94,7 @@ You can define custom entry types in your journal by simply adding more entry ty
     journal = {
         entries = {
             quarterly = {
-                -- strftime doesn't supply a quarter variable, so we need to compute the quarter manually
+                -- strftime doesn't supply a quarter variable, so we compute it manually
                 format = function(date)
                     local quarter = math.ceil(tonumber(os.date("%m", os.time(date.date))) / 3)
                     return "%Y/quarterly/" .. quarter
