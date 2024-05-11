@@ -181,6 +181,8 @@ entries. `:Journal` takes the following arguments:
 
 - `<type>`: An entry type (e.g. `day`, `week` etc) to determine which entry-type to open. Can be nested.
 - `<date-modifier>`. A date-modifier to determine which date the entry is for. If no date
+  is provided, defaults to today. If `date_modifier` is specified for the given entry type,
+  it is applied before the `<date-modifier>` argument is applied.
 
 ### Date-modifiers
 
