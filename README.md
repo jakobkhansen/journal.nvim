@@ -10,7 +10,7 @@
   information such as the current weekday or month
 - Flexible filesystem. flat or deeply-nested, group entries based on month or even hour of the day
 - Everything exposed under a `:Journal` command, with auto-completion for all your entry types
-- Linux, MacOS and Windows[\*](#windows-support) support
+- Linux, MacOS and Windows[\*](#-windows-support) support
 
 TODO: Video demonstration here
 
