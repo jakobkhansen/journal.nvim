@@ -211,7 +211,7 @@ you can create two groups with individual `day` and `week` entry types in separa
 While grouping probably covers most users need for grouping different entries, it is also
 possible to have completely separate journal directories. One could achieve this by
 setting the `root` option to a common folder such as `~` and then specify the folders in
-the format of each entry type.
+the `format` of each entry type.
 
 Another option is to set the `root` field to a function which returns the root directory
 of the journal. This function could return different directories based on cwd (`uv.cwd()`)
