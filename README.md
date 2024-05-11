@@ -1,6 +1,6 @@
 # 🖋️ journal.nvim
 
-journal.nvim is a highly extensible journaling system for Neovim.
+**journal.nvim** is a highly extensible journaling system for Neovim.
 
 ## ✨ Features
 
