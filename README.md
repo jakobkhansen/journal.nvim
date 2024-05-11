@@ -12,7 +12,7 @@
 - Everything exposed under a `:Journal` command, with auto-completion for all your entry types
 - Linux, MacOS and Windows[\*](#-windows-support) support
 
-TODO: Video demonstration here
+![journalnvim](https://github.com/jakobkhansen/journal.nvim/assets/8071566/3a52d405-aa33-4aa8-8345-3b8709aa21f7)
 
 ## 📦 Installation
 
