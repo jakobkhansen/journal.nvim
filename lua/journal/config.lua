@@ -1,5 +1,3 @@
--- Adapted from AckslD/nvim-neoclip.lua
-
 local M = {}
 
 local defaults = {
@@ -46,24 +44,37 @@ M.get = function()
     return defaults
 end
 
-M.journal_dir = function()
-    if type(defaults.root) == 'function' then
-        return defaults.root()
-    end
-    return defaults.root
+local function is_dict_like(tbl)
+    return type(tbl) == 'table' and not vim.tbl_islist(tbl)
 end
 
-local function merge_configs(user_config, config)
+local merge_configs = function(user_config, config)
     if user_config == nil then
         user_config = {}
     end
     for key, value in pairs(user_config) do
+        if type(value) == string then
+            config[key] = function() return value end
+        end
         config[key] = value
+    end
+end
+
+local function convert_strings_to_functions(config)
+    for key, value in pairs(config) do
+        if is_dict_like(config[key]) then
+            convert_strings_to_functions(config[key])
+        else
+            if type(value) == "string" then
+                config[key] = function() return value end
+            end
+        end
     end
 end
 
 M.setup = function(user_config)
     merge_configs(user_config, defaults)
+    convert_strings_to_functions(defaults)
 end
 
 return M

@@ -7,8 +7,8 @@ local utils = require('journal.utils')
 
 
 local function get_entry_path(date, format)
-    local journal_dir = vim.fn.expand(require('journal.config').journal_dir())
-    local filepath = journal_dir .. '/' .. os.date(format, os.time(date.date)) .. '.' .. config.filetype
+    local journal_dir = vim.fn.expand(config.root())
+    local filepath = journal_dir .. '/' .. os.date(format, os.time(date.date)) .. '.' .. config.filetype()
 
     if utils.is_windows() then
         filepath = utils.translate_to_windows_path(filepath)
@@ -52,8 +52,8 @@ local function open_file(file)
 end
 
 M.open_entry = function(date, entry_config)
-    local template = entry_config.template or ""
-    local journal_file = get_entry_path(date, entry_config.format)
+    local template = entry_config.template(date) or ""
+    local journal_file = get_entry_path(date, entry_config.format(date))
 
     create_if_not_exists(journal_file, date, template)
     open_file(journal_file)

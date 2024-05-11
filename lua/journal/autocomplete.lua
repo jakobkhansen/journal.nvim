@@ -11,12 +11,12 @@ local function get_entry_type_completion(entry_config)
 end
 
 local function should_auto_complete_date(is_at_end)
-    if (config.autocomplete_date_modifier == "always")
+    if (config.autocomplete_date_modifier() == "always")
     then
         return true
-    elseif config.autocomplete_date_modifier == "never" then
+    elseif config.autocomplete_date_modifier() == "never" then
         return false
-    elseif config.autocomplete_date_modifier == "end" then
+    elseif config.autocomplete_date_modifier() == "end" then
         return is_at_end
     end
 end
@@ -33,7 +33,7 @@ local function get_modifiers(entry_config)
         'next',
         '-1',
         '+1',
-        Date:today():to_format(config.date_format),
+        Date:today():to_format(config.date_format()),
     }
 
     utils.append_lists(output, vim.fn.keys(utils.weekdays))

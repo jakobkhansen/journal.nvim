@@ -4,6 +4,8 @@ local function valid_return(config, date)
     return not (config == nil or config.format == nil or date == nil)
 end
 
+require("journal").setup()
+
 describe(':Journal', function()
     it(':Journal', function()
         assert(valid_return(command.parse_command({})))

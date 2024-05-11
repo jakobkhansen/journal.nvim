@@ -56,13 +56,13 @@ local parse_date_argument = function(date, arg, entry)
         return date:weekday(utils.weekdays[arg])
     end
 
-    return date:from_datestring(config.date_format, arg)
+    return date:from_datestring(config.date_format(), arg)
 end
 
 local parse_date = function(command_arg, entry)
     local date = Date:today()
     if entry.date_modifier ~= nil then
-        date = parse_date_argument(date, entry.date_modifier, entry)
+        date = parse_date_argument(date, entry.date_modifier(), entry)
     end
     return parse_date_argument(date, command_arg, entry)
 end
