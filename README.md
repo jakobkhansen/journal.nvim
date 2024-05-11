@@ -174,6 +174,32 @@ you can create two groups with individual `day` and `week` entry types in separa
 }
 ```
 
+### Multiple journals
+
+While grouping probably covers most users need for grouping different entries, it is also
+possible to have completely separate journal directories. One could achieve this by
+setting the `root` option to a common folder such as `~` and then specify the folders in
+the format of each entry type.
+
+Another option is to set the `root` field to a function which returns the root directory
+of the journal. This function could return different directories based on cwd (`uv.cwd()`)
+or user input. The following function could be used to show a list of directories and let
+the user pick one:
+
+```lua
+{
+    root = function()
+        local journal_dir = nil
+        vim.ui.select(
+            { "~/journal1", "~/journal2" },
+            { prompt = "Select journal directory" },
+            function(selection) journal_dir = selection end
+        )
+        return journal_dir
+    end,
+}
+```
+
 ## 🖋️ The `:Journal` command
 
 `:Journal <type> <type> ... <date-modifier>` can be used to access all your journal
