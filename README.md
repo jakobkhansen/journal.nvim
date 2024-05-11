@@ -79,7 +79,7 @@ table are the options and default values:
 ```
 
 All string values can be replaced by functions that return strings. `format` and
-`template` options also get a `Date` argument.
+`template` options also get a [`Date`](lua/journal/date.lua) argument.
 
 All `format` and `template` options are parsed with `vim.fn.strftime`. To see the available variables, see
 `:h strftime` and `man strftime`. Note that `strftime` can have different behavior based on platform.
@@ -115,7 +115,64 @@ This entry type will generate entry-paths such as `2024/quarter/2.md`.
 
 ### Nested entry types
 
-TODO
+You can also define nested entry types in your journal in order to group different entry
+types by adding an `entries` table to any of your entry types. This allows you to run
+commands such as `:Journal groupA week` and `:Journal groupB week`. Journal entries can be
+arbitrarily nested to support as much grouping as you want. The following table shows how
+you can create two groups with individual `day` and `week` entry types in separate folders.
+
+```lua
+{
+    journal = {
+        entries = {
+            groupA = {
+                -- `:Journal groupA`
+                format = 'groupA/%Y/%m-%B/daily/%d-%A',
+                template = "# Group A %A %B %d %Y\n",
+                frequency = { day = 1 },
+
+                entries = {
+                    -- `:Journal groupA day`
+                    day = {
+                        format = 'groupA/%Y/%m-%B/daily/%d-%A',
+                        template = "# Group A %A %B %d %Y\n",
+                        frequency = { day = 1 },
+                    },
+                    -- `:Journal groupA week`
+                    week = {
+                        format = 'groupA/%Y/%m-%B/weekly/week-%W',
+                        template = "# Group A Week %W %B %Y\n",
+                        frequency = { day = 7 },
+                        date_modifier = "monday"
+                    },
+                }
+            },
+            groupB = {
+                -- `:Journal groupB`
+                format = 'groupB/%Y/%m-%B/daily/%d-%A',
+                template = "# Group B %A %B %d %Y\n",
+                frequency = { day = 1 },
+
+                entries = {
+                    -- `:Journal groupB day`
+                    day = {
+                        format = 'groupB/%Y/%m-%B/daily/%d-%A',
+                        template = "# Group B %A %B %d %Y\n",
+                        frequency = { day = 1 },
+                    },
+                    -- `:Journal groupB week`
+                    week = {
+                        format = 'groupB/%Y/%m-%B/weekly/week-%W',
+                        template = "# Group B Week %W %B %Y\n",
+                        frequency = { day = 7 },
+                        date_modifier = "monday"
+                    },
+                }
+            },
+        }
+    }
+}
+```
 
 ## 🖋️ The `:Journal` command
 

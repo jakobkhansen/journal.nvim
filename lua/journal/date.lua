@@ -2,6 +2,8 @@ local M = {}
 
 local utils = require('journal.utils')
 
+-- Date is a class that represents a date. It can be used to create dates, get relative dates from an existing date, and format dates.
+-- The `.date` field is a table which can be supplied to `os.time` functions.
 Date = { date = { day = 0, month = 0, year = 0, wday = 0, hour = 0, min = 0, sec = 0 } }
 
 -- Takes a table containing day, month, year, wday, hour, min, sec
