@@ -8,7 +8,7 @@ journal.nvim is a simple yet powerful journaling system for Neovim.
 - Extend your journal with custom entry types, allowing grouping, multiple journals and more
 - Define custom templates for each entry type. Custom templates can contain date
   information such as the current weekday or month
-- Flexible filesystem. Flat or deeply-nested, group entries based on month or even hour of the day.
+- Flexible filesystem. flat or deeply-nested, group entries based on month or even hour of the day
 - Everything exposed under a `:Journal` command, with auto-completion for all your entry types
 - Linux, MacOS and Windows[\*](#windows-support) support
 
