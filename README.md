@@ -39,7 +39,7 @@ table are the options and default values:
 ```lua
 {
     filetype = 'md',                    -- Filetype to use for new journal entries
-    root = '~/journal',                 -- String or () => String. Root directory for journal entries
+    root = '~/journal',                 -- Root directory for journal entries
     date_format = '%d/%m/%Y',           -- Date format for `:Journal <date-modifier>`
     autocomplete_date_modifier = "end", -- "always"|"never"|"end". Enable date modifier autocompletion
 
@@ -78,28 +78,43 @@ table are the options and default values:
 }
 ```
 
+All string values can be replaced by functions that return strings. `format` and
+`template` options also get a `Date` argument.
+
 All `format` and `template` options are parsed with `vim.fn.strftime`. To see the available variables, see
 `:h strftime` and `man strftime`. Note that `strftime` can have different behavior based on your platform.
 
-### Custom and nested entry types
+### Custom entry types
 
 You can define custom entry types in your journal by simply adding more entry types to the
-`entries` table. A `biweekly` entry type could be configured like so:
+`entries` table. A `quarterly` entry type could be configured like so:
 
 ```lua
 {
     journal = {
         entries = {
             quarterly = {
-                format = "%Y/biweekly/%W",
-                template = "# Week %W",
-                frequency = { day = 14 },
-                date_modifier = "monday"
+                -- strftime doesn't supply a quarter variable, so we need to compute the quarter manually
+                format = function(date)
+                    local quarter = math.ceil(tonumber(os.date("%m", os.time(date.date))) / 3)
+                    return "%Y/quarterly/" .. quarter
+                end,
+                template = function(date)
+                    local quarter = math.ceil(os.date("%m", os.time(date.date)) / 3)
+                    return "# %Y Quarter " .. quarter .. "\n"
+                end,
+                frequency = { month = 3 },
             }
         }
     }
 }
 ```
+
+This entry type will generate entries such as `2024/quarterly/1.md`.
+
+### Nested entry types
+
+TODO
 
 ## 🖋️ The `:Journal` command
 
