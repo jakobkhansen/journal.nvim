@@ -84,7 +84,31 @@ All string values can be replaced by functions that return strings. `format` and
 All `format` and `template` options are parsed with `vim.fn.strftime`. To see the available variables, see
 `:h strftime` and `man strftime`. Note that `strftime` can have different behavior based on platform.
 
-### Entry types
+## 🖋️ The `:Journal` command
+
+`:Journal <type> <type> ... <date-modifier>` can be used to access all your journal
+entries. `:Journal` takes the following arguments:
+
+- `<type>`: An entry type (e.g. `day`, `week` etc) to determine which entry-type to open. Can be nested
+- `<date-modifier>`. A date-modifier to determine which date the entry is for. If no date
+  is provided, defaults to today. If `date_modifier` is specified for the given entry type,
+  it is applied before the `<date-modifier>` argument is applied
+
+### Date-modifiers
+
+The `:Journal` command can take a plethora of different date-modifiers to determine which
+entry should be opened:
+
+- Weekdays (e.g. `monday`, `tuesday`...): The date for the current weeks instance
+  of the given weekday
+- Date-string (e.g. `10/05/2024`): Parses the date-string to a date according to the `date_format` option
+- `+n`/`-n` (e.g. `-1`, `+5`, ...): Relative date. Computes the relative
+  date with `n*frequency`, meaning `:Journal week -1` will go one week back, while `:Journal day +1`
+  will one day forward
+- `last`/`next`: Same as `-1`/`+1`
+- `n` (e.g. `1`, `18`, ...): Gets the date for the nth day of the month
+
+## 📚 Entries
 
 Each entry type in the `entries` table correspond to a `:Journal <type>` command. Running
 `:Journal <type>` will create a journal entry file with a path given by the `format`
@@ -207,30 +231,6 @@ the user pick one:
     end,
 }
 ```
-
-## 🖋️ The `:Journal` command
-
-`:Journal <type> <type> ... <date-modifier>` can be used to access all your journal
-entries. `:Journal` takes the following arguments:
-
-- `<type>`: An entry type (e.g. `day`, `week` etc) to determine which entry-type to open. Can be nested
-- `<date-modifier>`. A date-modifier to determine which date the entry is for. If no date
-  is provided, defaults to today. If `date_modifier` is specified for the given entry type,
-  it is applied before the `<date-modifier>` argument is applied
-
-### Date-modifiers
-
-The `:Journal` command can take a plethora of different date-modifiers to determine which
-entry should be opened:
-
-- Weekdays (e.g. `monday`, `tuesday`...): The date for the current weeks instance
-  of the given weekday
-- Date-string (e.g. `10/05/2024`): Parses the date-string to a date according to the `date_format` option
-- `+n`/`-n` (e.g. `-1`, `+5`, ...): Relative date. Computes the relative
-  date with `n*frequency`, meaning `:Journal week -1` will go one week back, while `:Journal day +1`
-  will one day forward
-- `last`/`next`: Same as `-1`/`+1`
-- `n` (e.g. `1`, `18`, ...): Gets the date for the nth day of the month
 
 ## 🪟 Windows support
 
