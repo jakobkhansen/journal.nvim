@@ -53,15 +53,15 @@ table are the options and default values:
         -- Nested configurations for `:Journal <type> <type> ... <date-modifier>`
         entries = {
             day = {
-                format = '%Y/%m-%B/daily/%d-%A', -- Format of the journal entry in the filesystem. See `:help strftime` for options
-                template = '# %A %B %d %Y\n',    -- Template used when creating a new journal entry
-                frequency = { day = 1 },         -- The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
+                format = '%Y/%m-%B/daily/%d-%A', -- Format of the journal entry in the filesystem.
+                template = '# %A %B %d %Y\n',    -- Optional. Template used when creating a new journal entry
+                frequency = { day = 1 },         -- Optional. The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
             },
             week = {
-                format = '%Y/%m-%B/weekly/week',
+                format = '%Y/%m-%B/weekly/week-%W',
                 template = "# Week %W %B %Y\n",
                 frequency = { day = 7 },
-                default_date_modifier = "monday" -- Default date modifier, makes `:Journal week` = `:Journal week monday`
+                default_date_modifier = "monday" -- Optional. Default date modifier, makes `:Journal week` = `:Journal week monday`
             },
             month = {
                 format = '%Y/%m-%B/%B',
@@ -78,7 +78,28 @@ table are the options and default values:
 }
 ```
 
+All `format` and `template` options are parsed with `vim.fn.strftime`. To see the available variables, see
+`:h strftime` and `man strftime`. Note that `strftime` can have different behavior based on your platform.
+
 ### Custom and nested entry types
+
+You can define custom entry types in your journal by simply adding more entry types to the
+`entries` table. A `biweekly` entry type could be configured like so:
+
+```lua
+{
+    journal = {
+        entries = {
+            quarterly = {
+                format = "%Y/biweekly/%W",
+                template = "# Week %W",
+                frequency = { day = 14 },
+                date_modifier = "monday"
+            }
+        }
+    }
+}
+```
 
 ## 🖋️ The `:Journal` command
 
