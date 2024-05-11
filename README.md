@@ -29,7 +29,17 @@ journal.nvim can be installed just like you install any other Neovim plugin.
 },
 ```
 
-TODO: Add Packer at least
+### Packer.nvim
+
+```lua
+use {
+    'jakobkhansen/journal.nvim',
+    config = function()
+        require('journal').setup()
+    end
+}
+
+```
 
 ## ⚙️ Configuration
 
