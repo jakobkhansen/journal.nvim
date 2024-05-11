@@ -179,10 +179,10 @@ you can create two groups with individual `day` and `week` entry types in separa
 `:Journal <type> <type> ... <date-modifier>` can be used to access all your journal
 entries. `:Journal` takes the following arguments:
 
-- `<type>`: An entry type (e.g. `day`, `week` etc) to determine which entry-type to open. Can be nested.
+- `<type>`: An entry type (e.g. `day`, `week` etc) to determine which entry-type to open. Can be nested
 - `<date-modifier>`. A date-modifier to determine which date the entry is for. If no date
   is provided, defaults to today. If `date_modifier` is specified for the given entry type,
-  it is applied before the `<date-modifier>` argument is applied.
+  it is applied before the `<date-modifier>` argument is applied
 
 ### Date-modifiers
 
@@ -192,16 +192,16 @@ entry should be opened:
 - Weekdays (e.g. `monday`, `tuesday`...): The date for the current weeks instance
   of the given weekday
 - Date-string (e.g. `10/05/2024`): Parses the date-string to a date according to the `date_format` option
-- `+n`/`-n` (e.g. `-1`, `+5`, ...): The date relative to today. Computes the relative
+- `+n`/`-n` (e.g. `-1`, `+5`, ...): Relative date. Computes the relative
   date with `n*frequency`, meaning `:Journal week -1` will go one week back, while `:Journal day +1`
-  will one day forward.
+  will one day forward
 - `last`/`next`: Same as `-1`/`+1`
-- `n` (e.g. `1`, `18`, ...): Gets the date for the nth day of the current month.
+- `n` (e.g. `1`, `18`, ...): Gets the date for the nth day of the month
 
 ## 🪟 Windows support
 
 journal.nvim will work great for most users on Windows. However, due to the missing
-implementation of `vim.fn.strptime`, accessing a journal entry via the datestring
+implementation of `vim.fn.strptime`, accessing a journal entry via the date-string
 date-modifier will not always work great. journal.nvim tries to translate the
 `date_format` option into a format which `Get-Date` in Windows can understand (but this is
 not a 1:1 mapping). This allows most sane date-formats to be used as datestrings, but
