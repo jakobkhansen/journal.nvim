@@ -47,7 +47,7 @@ table are the options and default values:
     journal = {
         -- Default configuration for `:Journal <date-modifier>`
         format = '%Y/%m-%B/daily/%d-%A',
-        template = '# %A %B %d %Y custom\n',
+        template = '# %A %B %d %Y\n',
         frequency = { day = 1 },
 
         -- Nested configurations for `:Journal <type> <type> ... <date-modifier>`
@@ -61,7 +61,7 @@ table are the options and default values:
                 format = '%Y/%m-%B/weekly/week-%W',
                 template = "# Week %W %B %Y\n",
                 frequency = { day = 7 },
-                default_date_modifier = "monday" -- Optional. Default date modifier, makes `:Journal week` = `:Journal week monday`
+                date_modifier = "monday" -- Date modifier applied before other date modifier given to `:Journal`
             },
             month = {
                 format = '%Y/%m-%B/%B',

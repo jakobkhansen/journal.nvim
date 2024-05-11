@@ -2,7 +2,7 @@ local M = {}
 
 local defaults = {
     filetype = 'md',                    -- Filetype to use for new journal entries
-    root = '~/journal',                 -- String or () => String. Root directory for journal entries
+    root = '~/journal',                 -- Root directory for journal entries
     date_format = '%d/%m/%Y',           -- Date format for `:Journal <date-modifier>`
     autocomplete_date_modifier = "end", -- "always"|"never"|"end". Enable date modifier autocompletion
 
@@ -16,15 +16,15 @@ local defaults = {
         -- Nested configurations for `:Journal <type> <type> ... <date-modifier>`
         entries = {
             day = {
-                format = '%Y/%m-%B/daily/%d-%A', -- Format of the journal entry in the filesystem. See `:h strftime` and `man strftime` for details
-                template = '# %A %B %d %Y\n',    -- Template used when creating a new journal entry
-                frequency = { day = 1 },         -- The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
+                format = '%Y/%m-%B/daily/%d-%A', -- Format of the journal entry in the filesystem.
+                template = '# %A %B %d %Y\n',    -- Optional. Template used when creating a new journal entry
+                frequency = { day = 1 },         -- Optional. The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
             },
             week = {
                 format = '%Y/%m-%B/weekly/week-%W',
                 template = "# Week %W %B %Y\n",
                 frequency = { day = 7 },
-                date_modifier = "monday" -- Applied before other date modifier given to `:Journal`
+                date_modifier = "monday" -- Date modifier applied before other date modifier given to `:Journal`
             },
             month = {
                 format = '%Y/%m-%B/%B',
