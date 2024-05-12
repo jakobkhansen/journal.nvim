@@ -32,8 +32,8 @@ local function create_directories(entry)
     return vim.fn.mkdir(dirname, 'p')
 end
 
-local function create_entry(entry, date, template)
-    local template_string = date:to_format(template)
+local function create_entry(entry, date, template_function)
+    local template_string = date:to_format(template_function())
     local file = io.open(entry, 'w')
 
     if file == nil then
@@ -46,10 +46,10 @@ local function create_entry(entry, date, template)
 end
 
 
-local function create_if_not_exists(entry, date, template)
+local function create_if_not_exists(entry, date, template_function)
     if not entry_exists(entry) then
         create_directories(entry)
-        create_entry(entry, date, template)
+        create_entry(entry, date, template_function)
     end
 end
 
@@ -58,14 +58,14 @@ local function open_file(file)
 end
 
 M.open_entry = function(date, entry_config)
-    local template = entry_config.template(date) or ""
+    local template_function = entry_config.template or function() return '' end
     local journal_file = get_entry_path(date, entry_config.format(date))
 
     if journal_file == nil then
         return
     end
 
-    create_if_not_exists(journal_file, date, template)
+    create_if_not_exists(journal_file, date, template_function)
     open_file(journal_file)
 end
 
