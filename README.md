@@ -216,6 +216,28 @@ you can create two groups with individual `day` and `week` entry types in separa
 }
 ```
 
+### Templates
+
+journal.nvim allows you to specify templates for all of your entry types, which will be
+applied to any new entry file that is created. Your templates can contain date variables
+just like the `format` options (these are parsed with `vim.fn.strftime`). Additionally,
+just like formats, you can set a template to a function which returns a string and
+programatically build your template string. This could be used to for example take user
+input to set a title, or return completely different templates based on user choice (See
+`vim.ui.select`). The following example shows how you can set a dynamic title with
+`vim.ui.input`. Note that date variables in templates being passed to `string.format`
+needs to have `%%` instead of `%` as a prefix in order to be ignored by `string.format`.
+
+```lua
+template = function()
+    local title = nil
+    vim.ui.input({ prompt = 'Title: ' }, function(input) title = input end)
+    return string.format("# %%Y %%B %%d: %s", title)
+end
+```
+
+Based on user input, this template could produce headers such as `# 2024 May 12: Custom title`
+
 ### Multiple journals
 
 While grouping probably covers most users need for grouping different entries, it is also
