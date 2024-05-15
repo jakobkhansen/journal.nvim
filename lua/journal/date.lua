@@ -12,7 +12,7 @@ function Date:new(date)
     setmetatable(o, self)
     self.__index = self
 
-    self.date = date
+    self.date = utils.shallow_copy(date)
 
     return o
 end
@@ -23,13 +23,16 @@ end
 
 -- Returns relative date from the current date
 function Date:relative(delta)
-    self.date = utils.add_tables(self.date, delta)
+    local date = Date:new(self.date)
 
-    local relative = os.date("*t", os.time(self.date))
+    date.date = Date:new(self.date).date
+    date.date = utils.add_tables(date.date, delta)
 
-    self.date = relative
+    local relative = os.date("*t", os.time(date.date))
 
-    return self
+    date.date = relative
+
+    return date
 end
 
 function Date:last(config)
@@ -46,8 +49,9 @@ end
 
 -- Returns date of this months instance of monthday (number)
 function Date:monthday(monthday)
-    self.day = monthday
-    return self
+    local date = Date:new(self.date)
+    date.day = monthday
+    return date
 end
 
 -- Returns date of this weeks instance of wday
@@ -55,7 +59,7 @@ function Date:weekday(wday)
     local today_w = tonumber(os.date("%u", os.time(self.date)))
     local days_delta = wday - today_w
 
-    return self:relative({ day = days_delta, month = 0, year = 0 })
+    return Date:relative({ day = days_delta, month = 0, year = 0 })
 end
 
 function Date:from_datestring(format, datestring)
