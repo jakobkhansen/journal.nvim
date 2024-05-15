@@ -34,6 +34,7 @@ end
 
 local function create_entry(entry, date, template_function)
     local template_string = date:to_format(template_function(date))
+
     local file = io.open(entry, 'w')
 
     if file == nil then
