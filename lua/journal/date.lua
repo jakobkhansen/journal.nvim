@@ -59,7 +59,7 @@ function Date:weekday(wday)
     local today_w = tonumber(os.date("%u", os.time(self.date)))
     local days_delta = wday - today_w
 
-    return Date:relative({ day = days_delta, month = 0, year = 0 })
+    return self:relative({ day = days_delta, month = 0, year = 0 })
 end
 
 function Date:from_datestring(format, datestring)
