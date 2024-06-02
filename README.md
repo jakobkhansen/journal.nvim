@@ -355,9 +355,9 @@ categories: Blog
 <details>
 <summary>Integrating with existing Neorg journal</summary>
 
-Some users might already be using Neorg journal and want to integrate with an existing
-journal there. The following configuration will simulate the default Neorg journal with
-the <code>strategy = nested</code> option.
+If you are using Neorg journal and want to integrate with an existing journal, the
+following configuration will replicate the default Neorg journal behavior with the <code>strategy =
+  nested</code> option.
 
 ```lua
 require("journal").setup({
@@ -367,5 +367,9 @@ require("journal").setup({
     }
 })
 ```
+
+Note that this config only enables the <code>:Journal</code> command which replicates the
+daily entries of the Neorg journal, other entry types such as <code>week</code> must be
+added in addition.
 
 </details>
