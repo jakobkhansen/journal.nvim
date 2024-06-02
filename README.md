@@ -272,3 +272,99 @@ date-modifier will not always work great. journal.nvim tries to translate the
 `date_format` option into a format which `Get-Date` in Windows can understand (but this is
 not a 1:1 mapping). This allows most sane date-formats to be used as datestrings, but
 expect to see issues if you use a complex `date_format` option on Windows.
+
+## Cookbook
+
+The following section is a collection of configurations which different users have deemed
+to be useful. PRs for more examples in the cookbook are welcome!
+
+<details>
+<summary>Date range in week template</summary>
+
+The following configuration will generate the date range for the week entry type. This
+configuration generates headers such as:
+
+<code># Week 22 - Monday 27/05 -> Sunday 02/06</code>.
+
+```lua
+week = {
+    format = '%Y/%m-%B/weekly/week-%W',
+    template = function(date)
+        local sunday = date:relative({ day = 6 })
+        local end_date = os.date('%A %d/%m', os.time(sunday.date))
+        return "# Week %W - %A %d/%m -> " .. end_date .. "\n"
+    end,
+    frequency = { day = 7 },
+    date_modifier = "monday"
+}
+```
+
+</details>
+
+<details>
+<summary>Jekyll blog entry generator</summary>
+
+This configuration will generate blog posts for your Jekyll blog.
+
+```lua
+local template =
+[[
+---
+layout: post
+title: "%Y %B %d"
+categories: Blog
+---
+]]
+
+require("journal").setup({
+    root = '~/Documents/blog/_posts', -- Replace with your blog path
+    journal = {
+        format = '%Y/%m/%Y-%m-%d-post',
+        frequency = { day = 1 },
+        template = template
+    }
+})
+```
+
+If you want something more dynamic such as dynamic titles for your posts, you can use
+<code>vim.ui.input</code> in your template function:
+
+```lua
+template = function()
+    local title = nil
+    vim.ui.input({ prompt = 'Title: ' }, function(input) title = input end)
+    return string.format(template, title)
+end
+```
+
+and change the template to:
+
+```lua
+local template = [[
+---
+layout: post
+title: "%s"
+categories: Blog
+---
+]]
+```
+
+</details>
+
+<details>
+<summary>Integrating with existing Neorg journal</summary>
+
+Some users might already be using Neorg and want to integrate with an existing journal
+there. The following configuration will simulate the default Neorg journal with the
+<code>strategy = nested</code> option.
+
+```lua
+require("journal").setup({
+    filetype = 'md',
+    journal = {
+        format = '%Y/%m/%d',
+    }
+})
+```
+
+</details>
