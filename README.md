@@ -356,8 +356,8 @@ categories: Blog
 <summary>Integrating with existing Neorg journal</summary>
 
 If you are using Neorg journal and want to integrate with an existing journal, the
-following configuration will replicate the default Neorg journal behavior with the <code>strategy =
-  nested</code> option.
+following configuration will replicate the default Neorg journal behavior with the
+<code>strategy = nested</code> option.
 
 ```lua
 require("journal").setup({
