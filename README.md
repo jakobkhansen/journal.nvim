@@ -276,8 +276,8 @@ expect to see issues if you use a complex `date_format` option on Windows.
 
 ## Cookbook
 
-The following section is a collection of configurations which different users have deemed
-to be useful. PRs for more examples in the cookbook are welcome!
+The following section is a collection of configurations which the community have deemed to
+be useful. PRs for more examples in the cookbook are welcome!
 
 <details>
 <summary>Date range in week template</summary>
