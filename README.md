@@ -282,8 +282,8 @@ useful. PRs for more examples in the cookbook are welcome!
 <details>
 <summary>Date range in week template</summary>
 
-The following configuration will generate the date range for the week entry type. This
-configuration generates headers such as:
+The following configuration will generate the date range in the template of the
+<code>week</code> entry type. This configuration generates headers such as:
 
 <code># Week 22 - Monday 27/05 -> Sunday 02/06</code>.
 
