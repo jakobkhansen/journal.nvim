@@ -11,6 +11,7 @@
 - Flexible filesystem. flat or deeply-nested, group entries based on month or even hour of the day
 - Everything exposed under a `:Journal` command, with auto-completion for all your entry types
 - Linux, MacOS and Windows[\*](#-windows-support) support
+- A [cookbook](#cookbook) of useful configurations from the community
 
 ![journalnvim](https://github.com/jakobkhansen/journal.nvim/assets/8071566/3a52d405-aa33-4aa8-8345-3b8709aa21f7)
 
@@ -354,9 +355,9 @@ categories: Blog
 <details>
 <summary>Integrating with existing Neorg journal</summary>
 
-Some users might already be using Neorg and want to integrate with an existing journal
-there. The following configuration will simulate the default Neorg journal with the
-<code>strategy = nested</code> option.
+Some users might already be using Neorg journal and want to integrate with an existing
+journal there. The following configuration will simulate the default Neorg journal with
+the <code>strategy = nested</code> option.
 
 ```lua
 require("journal").setup({
