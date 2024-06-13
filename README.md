@@ -361,7 +361,7 @@ following configuration will replicate the default Neorg journal behavior with t
 
 ```lua
 require("journal").setup({
-    filetype = 'md',
+    filetype = 'norg',
     journal = {
         format = '%Y/%m/%d',
     }
