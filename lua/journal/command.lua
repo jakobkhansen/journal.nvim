@@ -59,12 +59,32 @@ local parse_date_argument = function(date, arg, entry)
     return date:from_datestring(config.date_format(), arg)
 end
 
-local parse_date = function(command_arg, entry)
+local parse_date = function(command_args, entry)
     local date = Date:today()
+
+    -- Parse date_modifier in config
     if entry.date_modifier ~= nil then
-        date = parse_date_argument(date, entry.date_modifier(), entry)
+        for _, arg in ipairs(utils.split(entry.date_modifier(), "%S+")) do
+            date = parse_date_argument(date, arg, entry)
+
+            if date == nil then
+                return nil
+            end
+        end
     end
-    return parse_date_argument(date, command_arg, entry)
+
+    -- Parse date modifiers in command
+    if command_args ~= nil then
+        for _, arg in ipairs(command_args) do
+            date = parse_date_argument(date, arg, entry)
+
+            if date == nil then
+                return nil
+            end
+        end
+    end
+
+    return date
 end
 
 M.execute = function(args)
@@ -83,7 +103,7 @@ end
 M.parse_command = function(args)
     local entry = parse_entry(args)
 
-    local date = parse_date(args[1], entry)
+    local date = parse_date(args, entry)
 
     if valid_type(entry) == false or date == nil then
         return nil, nil
