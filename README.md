@@ -118,7 +118,7 @@ entry should be opened:
   will go one day forward
 - `last`/`next`: Same as `-1`/`+1`
 - `n` (e.g. `1`, `18`, ...): Gets the date for the nth day of the month
-- Date modifiers can be chained together for complex behavior, such as `:Journal week -1 sunday` to jump to last weeks sunday entry
+- Date modifiers can be chained together for complex behavior, such as `:Journal week last sunday` to jump to last weeks sunday entry
 
 ## 📚 Entries
 
@@ -300,6 +300,31 @@ week = {
     date_modifier = "monday"
 }
 ```
+
+</details>
+
+<details>
+<summary>Change start of week day</summary>
+
+Some locales use different week days as start of week. Journal.nvim does not expose a
+configuration to change this explicitly, but it can be achieved by chaining
+<code>date_modifiers</code> to jump to the last sunday for example:
+
+```lua
+week = {
+    format = '%Y/%m-%B/weekly/week-%W',
+    template = function(date)
+        local saturday = date:relative({ day = 6 })
+        local end_date = os.date('%A %d/%m', os.time(saturday.date))
+        return "# Week %W - %A %d/%m -> " .. end_date .. "\n"
+    end,
+    frequency = { day = 7 },
+    date_modifier = "last sunday" -- Jump to last sunday instead of monday
+},
+```
+
+This is mainly useful when you want to show the date range from Sunday -> Saturday like in
+the template (also see cookbook entry for that above)
 
 </details>
 
