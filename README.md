@@ -103,9 +103,7 @@ entries. `:Journal` takes the following arguments:
 - `<type>`: An entry type (e.g. `day`, `week` etc) to determine which entry type to open. Can be nested
 - `<date-modifier>`. A date-modifier to determine which date the entry is for. If no date
   is provided, defaults to today. If `date_modifier` is specified for the given entry type,
-  it is applied before the `<date-modifier>` argument is applied. Date modifiers
-  can be chained to jump to for example `last sunday`
-
+  it is applied before the `<date-modifier>` argument is applied.
 ### Date-modifiers
 
 The `:Journal` command can take a plethora of different date-modifiers to determine which
@@ -119,7 +117,8 @@ entry should be opened:
   will go one day forward
 - `last`/`next`: Same as `-1`/`+1`
 - `n` (e.g. `1`, `18`, ...): Gets the date for the nth day of the month
-- Date modifiers can be chained together for complex behavior, such as `:Journal week last sunday` to jump to last weeks sunday entry
+- Date modifiers can be chained together for complex behavior, such as `:Journal week last sunday` to jump to last weeks sunday entry. 
+Note that `last` here is defined as `-1*frequency` which means one week back only if `frequency = 7`.
 
 ## 📚 Entries
 
@@ -320,7 +319,7 @@ week = {
         return "# Week %W - %A %d/%m -> " .. end_date .. "\n"
     end,
     frequency = { day = 7 },
-    date_modifier = "last sunday" -- Jump to last sunday instead of monday
+    date_modifier = "last sunday" -- Jump to last sunday instead of the usual monday
 },
 ```
 
